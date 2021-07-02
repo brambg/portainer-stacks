@@ -1,0 +1,16 @@
+# url: https://hello-world.rd.di.huc.knaw.nl
+version: "2"
+networks:
+  nginxproxynetwork:
+    external:
+      name: nginxproxynetwork
+services:
+  hello-world:
+    image: crccheck/hello-world
+    tty: true
+    expose:
+      - 8000
+    environment:
+      - VIRTUAL_HOST=hello-world.tt.di.huc.knaw.nl
+    networks:
+      - nginxproxynetwork
