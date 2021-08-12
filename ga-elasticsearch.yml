@@ -1,0 +1,26 @@
+version: '2'
+
+networks:
+  nginxproxynetwork:
+    external:
+      name: nginxproxynetwork
+
+services:
+  elasticsearch:
+    container_name: ga_elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.14.0
+    environment:
+      - VIRTUAL_HOST=es.goldenagents.tt.di.huc.knaw.nl
+    networks:
+      - nginxproxynetwork 
+
+  kibana:
+    container_name: ga_kibana
+    image: docker.elastic.co/kibana/kibana:7.14.0
+    environment:
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+      - VIRTUAL_HOST=kibana.goldenagents.tt.di.huc.knaw.nl
+    networks:
+      - nginxproxynetwork 
+    depends_on:
+      - elasticsearch
