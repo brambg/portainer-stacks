@@ -1,0 +1,16 @@
+version: '2'
+networks:
+  nginxproxynetwork:
+    external:
+      name: nginxproxynetwork
+services:
+  mvn_frontend:
+    container_name: mvn_frontend
+    image: registry.diginfra.net/bramb/mvn-frontend:2021.1
+    tty: true
+    expose:
+      - 80
+    environment:
+      - VIRTUAL_HOST=test.mvn.tt.di.huc.knaw.nl
+    networks:
+      - nginxproxynetwork 
